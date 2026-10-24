@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K-chat - Messagerie</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #101827;
+      color: white;
+    }
+    header {
+      background: #18243a;
+      padding: 22px;
+      text-align: center;
+      border-bottom: 2px solid #6c63ff;
+    }
+    header h1 { margin: 0; color: #8d85ff; }
+    header p { margin-bottom: 0; color: #cbd5e1; }
+    main {
+      max-width: 600px;
+      margin: 25px auto;
+      padding: 20px;
+    }
+    .card {
+      background: #1e293b;
+      padding: 22px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+    input, button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 12px;
+      border-radius: 9px;
+      font-size: 16px;
+    }
+    input {
+      border: 1px solid #475569;
+      background: #0f172a;
+      color: white;
+    }
+    button {
+      background: #6c63ff;
+      color: white;
+      border: none;
+      font-weight: bold;
+    }
+    button:active { opacity: .8; }
+    #messages {
+      height: 220px;
+      overflow-y: auto;
+      background: #0f172a;
+      border-radius: 10px;
+      padding: 12px;
+    }
+    .note { color: #94a3b8; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>💬 K-chat</h1>
+    <p>Connecte-toi avec tes amis</p>
+  </header>  <main>
+    <section class="card">
+      <h2>👤 Bienvenue sur K-chat</h2>
+      <p>Ta future messagerie personnelle.</p>
+      <input id="pseudo" type="text" placeholder="Ton pseudo">
+      <button onclick="entrer()">Entrer dans K-chat</button>
+      <p id="bienvenue"></p>
+    </section><section class="card">
+  <h2>💬 Salon de discussion</h2>
+  <div id="messages">
+    <p class="note">Bienvenue ! Les messages ne sont pas encore partagés entre utilisateurs.</p>
+  </div>
+  <input id="message" type="text" placeholder="Écris un message...">
+  <button onclick="envoyer()">Envoyer</button>
+  <p class="note">Version de démonstration : les messages restent sur cette page.</p>
+</section>
+
+  </main>  <script>
+    let utilisateur = "";
+
+    function entrer() {
+      const pseudo = document.getElementById("pseudo").value.trim();
+      if (!pseudo) {
+        alert("Entre d'abord ton pseudo.");
+        return;
+      }
+      utilisateur = pseudo;
+      document.getElementById("bienvenue").textContent =
+        "Bienvenue, " + utilisateur + " !";
+    }
+
+    function envoyer() {
+      if (!utilisateur) {
+        alert("Entre d'abord dans K-chat avec ton pseudo.");
+        return;
+      }
+
+      const champ = document.getElementById("message");
+      const texte = champ.value.trim();
+
+      if (!texte) return;
+
+      const bulle = document.createElement("p");
+      bulle.textContent = utilisateur + " : " + texte;
+      document.getElementById("messages").appendChild(bulle);
+      champ.value = "";
+      bulle.scrollIntoView({ behavior: "smooth" });
+    }
+  </script></body>
+</html>
